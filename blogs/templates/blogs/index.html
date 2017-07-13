@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>블로거지</title>
+</head>
+<body>
+
+    <form action="/blogs/register/" method="post">
+        {% csrf_token %}
+        제목 <input type="text" name="title"><br>
+        작성자 <input type="text" name="author"><br>
+        내용 <textarea name="contents" id="" cols="30" rows="10"></textarea>
+        <input type="submit">
+    </form>
+
+    {% if latest_article_list %}
+        <ul>
+            {% for article in latest_article_list %}
+                <h1>{{ article.title|linebreaks }} </h1>
+                <h2>{{ article.author }} </h2>
+                <h2>{{ article.pub_date }} </h2>
+                {{ article.contents|linebreaks  }}
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>작성된 블로그가 없다네 인간.</h1>
+    {% endif %}
+
+</body>
+</html>
